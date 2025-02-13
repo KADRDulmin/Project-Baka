@@ -214,8 +214,9 @@ body {
 .wish-hbd {
   font-size: 3em;
   margin: 0;
-  white-space: nowrap;
+  white-space: normal;
   letter-spacing: 2px;
+  line-height: 1.4;
 }
 
 .wish h5 {
@@ -290,6 +291,7 @@ body {
     font-size: 1.8em;
     white-space: normal;
     line-height: 1.5;
+    padding: 0 10px;
   }
 
   .wish h5 {

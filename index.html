@@ -27,9 +27,16 @@
     />
     <link rel="shortcut icon" type="image/png" href="./img/heart.svg" />
     <link rel="stylesheet" href="style/style.css" />
+    <!-- Add Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
   </head>
 
   <body>
+    <!-- Add Spotify Player before container -->
+    <div class="spotify-player">
+      <iframe id="spotify-iframe" src="https://spotify-github-profile.kittinanx.com/api/view?uid=how246sf6d68ngu0lvu3hipic&redirect=true" frameborder="0" style="border:none; overflow:hidden;" scrolling="no" seamless="seamless"></iframe>
+    </div>
+
     <div class="container">
       <div class="one">
         <h1 class="one">
@@ -148,6 +155,10 @@
         <p class="last-smile">:)</p>
       </div>
     </div>
+
+    <!-- Add floating hearts -->
+    <div class="floating-hearts"></div>
+    
   </body>
 
   <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>

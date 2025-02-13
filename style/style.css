@@ -235,11 +235,11 @@ body {
   background: linear-gradient(to right, #ff0844 0%, #ffb199 100%);
   -webkit-background-clip: text;
   background-clip: text;
-  -webkit-text-fill-color: transparent;
+  -webkit-text-fill-color: rgb(255, 136, 156);
   padding: 20px;
   margin: 0;
   position: relative;
-  text-shadow: 2px 2px 4px rgba(255, 105, 180, 0.3);
+  text-shadow: 2px 2px 4px rgb(255, 20, 138);
   animation: messageFloat 3s ease-in-out infinite;
 }
 
@@ -248,7 +248,7 @@ body {
   content: "💝";
   position: absolute;
   font-size: 0.4em;
-  opacity: 0.8;
+  opacity: 1;
 }
 
 .valentine-message::before {

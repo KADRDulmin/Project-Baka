@@ -1,61 +1,8 @@
-// Add at the beginning
-const createFloatingHearts = () => {
-  const hearts = document.querySelector('.floating-hearts');
-  const colors = ['#ff69b4', '#ff1493', '#ff69b4', '#ff1493'];
-
-  setInterval(() => {
-    const heart = document.createElement('div');
-    heart.innerHTML = '❤️';
-    heart.style.left = Math.random() * 100 + 'vw';
-    heart.style.animation = `floatHeart ${Math.random() * 3 + 2}s linear`;
-    heart.style.fontSize = Math.random() * 20 + 10 + 'px';
-    heart.style.opacity = Math.random();
-    hearts.appendChild(heart);
-
-    setTimeout(() => heart.remove(), 5000);
-  }, 300);
-};
-
-// Audio Player Controls
-const initAudioPlayer = () => {
-  const audio = document.getElementById('background-music');
-  const playPauseButton = document.getElementById('play-pause');
-  const playPauseIcon = playPauseButton.querySelector('i');
-
-  // Autoplay setup with user interaction check
-  const attemptAutoplay = () => {
-    audio.play().then(() => {
-      playPauseIcon.className = 'fas fa-pause';
-    }).catch((error) => {
-      console.log("Autoplay prevented:", error);
-    });
-  };
-
-  // Try autoplay when document is clicked
-  document.addEventListener('click', function initPlay() {
-    attemptAutoplay();
-    document.removeEventListener('click', initPlay);
-  }, { once: true });
-
-  playPauseButton.addEventListener('click', () => {
-    if (audio.paused) {
-      audio.play();
-      playPauseIcon.className = 'fas fa-pause';
-    } else {
-      audio.pause();
-      playPauseIcon.className = 'fas fa-play';
-    }
-  });
-
-  // Try initial autoplay
-  attemptAutoplay();
-};
-
 // Animation Timeline
 const animationTimeline = () => {
   // Spit chars that needs to be animated individually
   const textBoxChars = document.getElementsByClassName("hbd-chatbox")[0];
-  const hbd = document.getElementsByClassName("wish-hbd")[0];
+  const hbd = document.getElementsByClassName("valentine-message")[0];
 
   textBoxChars.innerHTML = `<span>${textBoxChars.innerHTML
     .split("")
@@ -253,12 +200,11 @@ const animationTimeline = () => {
       opacity: 0,
     })
     .staggerFrom(
-      ".wish-hbd span",
+      ".valentine-message span",
       0.7,
       {
         opacity: 0,
         y: -50,
-        // scale: 0.3,
         rotation: 150,
         skewX: "30deg",
         ease: Elastic.easeOut.config(1, 0.5),
@@ -266,7 +212,7 @@ const animationTimeline = () => {
       0.1
     )
     .staggerFromTo(
-      ".wish-hbd span",
+      ".valentine-message span",
       0.7,
       {
         scale: 1.4,
@@ -316,25 +262,7 @@ const animationTimeline = () => {
         rotation: 90,
       },
       "+=1"
-    )
-    .from(".wish-hbd", 0.7, {
-      opacity: 0,
-      y: -50,
-      scale: 0.3,
-      ease: Elastic.easeOut.config(1, 0.5)
-    })
-    .to(".wish-hbd", 0.7, {
-      opacity: 1,
-      y: 0,
-      scale: 1,
-      ease: Elastic.easeOut.config(1, 0.5),
-      onComplete: () => {
-        // Add glitter effect after text appears
-        const glitter = document.createElement('div');
-        glitter.className = 'glitter';
-        document.querySelector('.wish-hbd').appendChild(glitter);
-      }
-    });
+    );
 
   // tl.seek("currentStep");
   // tl.timeScale(2);
@@ -344,8 +272,6 @@ const animationTimeline = () => {
   replyBtn.addEventListener("click", () => {
     tl.restart();
   });
-
-  createFloatingHearts();
 };
 
 // Import the data to customize and insert them into page
@@ -375,41 +301,4 @@ const resolveFetch = () => {
   });
 };
 
-resolveFetch().then(() => {
-  animationTimeline();
-  initAudioPlayer();
-  initCarousel();
-});
-
-// Add carousel functionality
-const initCarousel = () => {
-  const container = document.querySelector('.carousel-container');
-  const slides = document.querySelectorAll('.carousel-slide');
-  const dotsContainer = document.querySelector('.carousel-dots');
-  let currentSlide = 0;
-
-  // Create dots
-  slides.forEach((_, i) => {
-    const dot = document.createElement('div');
-    dot.className = `dot ${i === 0 ? 'active' : ''}`;
-    dot.addEventListener('click', () => goToSlide(i));
-    dotsContainer.appendChild(dot);
-  });
-
-  const dots = document.querySelectorAll('.dot');
-
-  function goToSlide(n) {
-    container.style.transform = `translateX(-${n * 100}%)`;
-    dots.forEach(dot => dot.classList.remove('active'));
-    dots[n].classList.add('active');
-    currentSlide = n;
-  }
-
-  function nextSlide() {
-    currentSlide = (currentSlide + 1) % slides.length;
-    goToSlide(currentSlide);
-  }
-
-  // Auto-advance slides
-  setInterval(nextSlide, 3000);
-};
+resolveFetch().then(animationTimeline());

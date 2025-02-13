@@ -1,8 +1,11 @@
 :root {
   --primary-color: #ff69b4;
   --secondary-color: #ff1493;
+  --accent-color: #ffcce6;
   --text-color: #333;
   --background-color: #fff9fb;
+  --font-primary: "Playfair Display", serif;
+  --font-secondary: "Great Vibes", cursive;
 }
 
 html {
@@ -17,21 +20,19 @@ body {
 }
 
 .container {
-  height: 100vh;
-  width: 100vh;
+  min-height: 100vh;
+  width: 100%;
+  max-width: 1200px;
   margin: 0 auto;
+  padding: 20px;
   text-align: center;
   visibility: hidden;
   position: relative;
   overflow: hidden;
-  background: linear-gradient(
-    135deg,
-    rgba(255, 255, 255, 0.9),
-    rgba(255, 255, 255, 0.7)
-  );
+  background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(10px);
-  border-radius: 20px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  border-radius: 30px;
+  box-shadow: 0 8px 32px rgba(255, 105, 180, 0.15);
 }
 
 .container div.six {
@@ -230,56 +231,136 @@ body {
 
 /* Replace wish-hbd with valentine-message styling */
 .valentine-message {
-  font-size: 3.5em;
-  font-family: "Great Vibes", cursive;
-  background: linear-gradient(to right, #ff0844 0%, #ffb199 100%);
-  -webkit-background-clip: text;
+  font-family: var(--font-secondary);
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  line-height: 1.4;
+  background: linear-gradient(
+    45deg,
+    var(--primary-color),
+    var(--secondary-color)
+  );
+  background-size: 200% 200%;
   background-clip: text;
-  -webkit-text-fill-color: rgb(255, 136, 156);
+  -webkit-background-clip: text;
+  color: transparent;
   padding: 20px;
   margin: 0;
   position: relative;
-  text-shadow: 2px 2px 4px rgb(255, 20, 138);
-  animation: messageFloat 3s ease-in-out infinite;
+  text-shadow: 2px 2px 4px rgba(255, 105, 180, 0.2);
+  animation: gradientFlow 3s ease infinite;
 }
 
 .valentine-message::before,
 .valentine-message::after {
   content: "💝";
+  font-size: 0.5em;
   position: absolute;
-  font-size: 0.4em;
-  opacity: 1;
+  opacity: 0.9;
+  filter: drop-shadow(0 0 10px rgba(255, 105, 180, 0.5));
 }
 
-.valentine-message::before {
-  left: -10px;
+@keyframes gradientFlow {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Modern Card Styles */
+.wish {
+  background: rgba(255, 255, 255, 0.95);
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(255, 105, 180, 0.2);
+  transform-style: preserve-3d;
+  perspective: 1000px;
+  transition: transform 0.3s ease;
+}
+
+.wish:hover {
+  transform: translateY(-5px) rotateX(5deg);
+}
+
+/* Enhanced Mobile Responsiveness */
+@media screen and (max-width: 768px) {
+  .container {
+    width: 95%;
+    padding: 15px;
+    margin: 10px auto;
+  }
+
+  .valentine-message {
+    font-size: clamp(2rem, 4vw, 3rem);
+    padding: 15px;
+  }
+
+  .baloons img {
+    width: 120px;
+  }
+
+  .six img {
+    max-width: 60%;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .container {
+    width: 98%;
+    padding: 10px;
+  }
+
+  .valentine-message {
+    font-size: clamp(1.8rem, 3.5vw, 2.5rem);
+    padding: 10px;
+  }
+
+  .baloons img {
+    width: 80px;
+  }
+
+  .six img {
+    max-width: 75%;
+  }
+}
+
+/* Add romantic floating hearts background */
+.floating-hearts {
+  position: fixed;
   top: 0;
-  animation: heartBeat 1.5s ease-in-out infinite;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: -1;
+  overflow: hidden;
 }
 
-.valentine-message::after {
-  right: -10px;
-  bottom: 0;
-  animation: heartBeat 1.5s ease-in-out infinite 0.5s;
+.heart {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background: var(--primary-color);
+  transform: rotate(45deg);
+  opacity: 0;
+  animation: floatingHeart 4s ease-in infinite;
 }
 
-@keyframes messageFloat {
-  0%,
-  100% {
-    transform: translateY(0) rotate(-2deg);
+@keyframes floatingHeart {
+  0% {
+    transform: rotate(45deg) translateY(100vh);
+    opacity: 0;
   }
   50% {
-    transform: translateY(-10px) rotate(2deg);
+    opacity: 0.5;
   }
-}
-
-@keyframes heartBeat {
-  0%,
   100% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.3);
+    transform: rotate(45deg) translateY(-100vh);
+    opacity: 0;
   }
 }
 

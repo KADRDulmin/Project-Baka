@@ -9,11 +9,13 @@
       rel="stylesheet"
     />
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Great+Vibes&display=swap" rel="stylesheet">
     <link rel="shortcut icon" type="image/png" href="./img/heart.svg" />
     <link rel="stylesheet" href="style/style.css" />
   </head>
 
   <body>
+    <div class="floating-hearts"></div>
     <div class="container">
       <div class="one">
         <h1 class="one">
@@ -136,6 +138,19 @@
         <p class="last-smile">:)</p>
       </div>
     </div>
+    <script>
+      // Add dynamic floating hearts
+      function createHearts() {
+        const container = document.querySelector('.floating-hearts');
+        const heart = document.createElement('div');
+        heart.classList.add('heart');
+        heart.style.left = Math.random() * 100 + 'vw';
+        heart.style.animationDuration = Math.random() * 3 + 2 + 's';
+        container.appendChild(heart);
+        setTimeout(() => heart.remove(), 5000);
+      }
+      setInterval(createHearts, 300);
+    </script>
   </body>
 
   <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>

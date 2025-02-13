@@ -22,6 +22,21 @@ const initAudioPlayer = () => {
   const playPauseButton = document.getElementById('play-pause');
   const playPauseIcon = playPauseButton.querySelector('i');
 
+  // Autoplay setup with user interaction check
+  const attemptAutoplay = () => {
+    audio.play().then(() => {
+      playPauseIcon.className = 'fas fa-pause';
+    }).catch((error) => {
+      console.log("Autoplay prevented:", error);
+    });
+  };
+
+  // Try autoplay when document is clicked
+  document.addEventListener('click', function initPlay() {
+    attemptAutoplay();
+    document.removeEventListener('click', initPlay);
+  }, { once: true });
+
   playPauseButton.addEventListener('click', () => {
     if (audio.paused) {
       audio.play();
@@ -31,6 +46,9 @@ const initAudioPlayer = () => {
       playPauseIcon.className = 'fas fa-play';
     }
   });
+
+  // Try initial autoplay
+  attemptAutoplay();
 };
 
 // Animation Timeline
@@ -298,7 +316,25 @@ const animationTimeline = () => {
         rotation: 90,
       },
       "+=1"
-    );
+    )
+    .from(".wish-hbd", 0.7, {
+      opacity: 0,
+      y: -50,
+      scale: 0.3,
+      ease: Elastic.easeOut.config(1, 0.5)
+    })
+    .to(".wish-hbd", 0.7, {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      ease: Elastic.easeOut.config(1, 0.5),
+      onComplete: () => {
+        // Add glitter effect after text appears
+        const glitter = document.createElement('div');
+        glitter.className = 'glitter';
+        document.querySelector('.wish-hbd').appendChild(glitter);
+      }
+    });
 
   // tl.seek("currentStep");
   // tl.timeScale(2);

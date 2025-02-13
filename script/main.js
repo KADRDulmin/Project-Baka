@@ -16,6 +16,23 @@ const createFloatingHearts = () => {
   }, 300);
 };
 
+// Audio Player Controls
+const initAudioPlayer = () => {
+  const audio = document.getElementById('background-music');
+  const playPauseButton = document.getElementById('play-pause');
+  const playPauseIcon = playPauseButton.querySelector('i');
+
+  playPauseButton.addEventListener('click', () => {
+    if (audio.paused) {
+      audio.play();
+      playPauseIcon.className = 'fas fa-pause';
+    } else {
+      audio.pause();
+      playPauseIcon.className = 'fas fa-play';
+    }
+  });
+};
+
 // Animation Timeline
 const animationTimeline = () => {
   // Spit chars that needs to be animated individually
@@ -322,4 +339,7 @@ const resolveFetch = () => {
   });
 };
 
-resolveFetch().then(animationTimeline());
+resolveFetch().then(() => {
+  animationTimeline();
+  initAudioPlayer();
+});

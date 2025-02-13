@@ -342,4 +342,38 @@ const resolveFetch = () => {
 resolveFetch().then(() => {
   animationTimeline();
   initAudioPlayer();
+  initCarousel();
 });
+
+// Add carousel functionality
+const initCarousel = () => {
+  const container = document.querySelector('.carousel-container');
+  const slides = document.querySelectorAll('.carousel-slide');
+  const dotsContainer = document.querySelector('.carousel-dots');
+  let currentSlide = 0;
+
+  // Create dots
+  slides.forEach((_, i) => {
+    const dot = document.createElement('div');
+    dot.className = `dot ${i === 0 ? 'active' : ''}`;
+    dot.addEventListener('click', () => goToSlide(i));
+    dotsContainer.appendChild(dot);
+  });
+
+  const dots = document.querySelectorAll('.dot');
+
+  function goToSlide(n) {
+    container.style.transform = `translateX(-${n * 100}%)`;
+    dots.forEach(dot => dot.classList.remove('active'));
+    dots[n].classList.add('active');
+    currentSlide = n;
+  }
+
+  function nextSlide() {
+    currentSlide = (currentSlide + 1) % slides.length;
+    goToSlide(currentSlide);
+  }
+
+  // Auto-advance slides
+  setInterval(nextSlide, 3000);
+};

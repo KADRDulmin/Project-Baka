@@ -20,7 +20,10 @@
             <span class="song-title">Consume</span>
             <span class="artist-name">Chase Atlantic ft. Goon Des Garcons*</span>
         </div>
-        <audio id="background-music" controls autoplay loop>
+        <button id="play-pause" class="play-button">
+            <i class="fas fa-play"></i>
+        </button>
+        <audio id="background-music" loop>
             <source src="music/background-music.mp3" type="audio/mpeg">
         </audio>
     </div>
@@ -158,6 +161,24 @@
         setTimeout(() => heart.remove(), 5000);
       }
       setInterval(createHearts, 300);
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <script>
+        const audio = document.getElementById('background-music');
+        const playPauseButton = document.getElementById('play-pause');
+        const playIcon = playPauseButton.querySelector('i');
+
+        playPauseButton.addEventListener('click', () => {
+            if (audio.paused) {
+                audio.play();
+                playIcon.classList.remove('fa-play');
+                playIcon.classList.add('fa-pause');
+            } else {
+                audio.pause();
+                playIcon.classList.remove('fa-pause');
+                playIcon.classList.add('fa-play');
+            }
+        });
     </script>
   </body>
   <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>

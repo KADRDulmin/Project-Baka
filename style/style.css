@@ -556,6 +556,39 @@ body {
     0 0 0 3px rgba(255, 255, 255, 0.5);
 }
 
+.play-button {
+  background: white;
+  border: none;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(255, 105, 180, 0.3);
+}
+
+.play-button i {
+  color: #ff1493;
+  font-size: 1.2em;
+  transition: transform 0.2s ease;
+}
+
+.play-button:hover {
+  transform: scale(1.1);
+  background-color: rgba(255, 255, 255, 0.95);
+}
+
+.play-button:active {
+  transform: scale(0.95);
+}
+
+.music-player audio {
+  display: none;
+}
+
 .song-info {
   text-align: left;
 }
